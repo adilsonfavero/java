@@ -5,6 +5,7 @@
  */
 package Controller;
 
+import Model.Usuario;
 import java.io.BufferedReader;
 import java.io.DataInput;
 import java.io.DataInputStream;
@@ -63,20 +64,22 @@ public class Server implements Runnable
             {
                 clientSocket = serverSocket.accept();
                 System.out.println("Cliente conectado...: "+clientSocket.getInetAddress() + ":" + clientSocket.getPort());
-                //bEntrada = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-                bIn = new DataInputStream(clientSocket.getInputStream());
-                System.out.println("Status de recebimento: "+clientSocket.getRemoteSocketAddress());
-                System.out.println("Status de recebimento:"+clientSocket.getInputStream());
-                boolean retorno = true;	
+                bIn = new DataInputStream(clientSocket.getInputStream());	
                 bSaida = new DataOutputStream(clientSocket.getOutputStream());
+                
+                Usuario u = new Usuario();
+                u.setUsUsuario(bIn.readUTF());
+                u.setUsSenha(bIn.readUTF());
+                
+                
+                
+                
+                
+                boolean retorno = true;
                 String txt = null;
                 String r = "False";
                     try
                     {
-                        bSaida.write(("OK").getBytes());
-                        bSaida.flush();
-                        //r = bEntrada.readLine();
-                        System.out.println("Recebe aceito1 - Inicio de processo");
                         r = bIn.readUTF();
                         System.out.println("Recebe aceito1 "+r);
                         while(retorno)
