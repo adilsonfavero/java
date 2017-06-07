@@ -32,10 +32,16 @@ public class Server
     private DataOutputStream bSaida;
     private static final Logger LOGGER = Logger.getLogger("LOG");
     private DataInputStream bIn;
+    private int porta;
     
-    public Server(int port) throws IOException
+    public Server(int port) throws IOException 
     {
-        serverSocket = new ServerSocket(port);
+        this.porta = port;
+    }
+    
+    public void start() throws IOException
+    {
+        serverSocket = new ServerSocket(porta);
         LOGGER.info("Log Habilitado");
         System.out.println("Servidor de comunicação iniciado na porta: "+serverSocket.getLocalPort());
     
@@ -55,7 +61,18 @@ public class Server
         {
             System.out.println("Erro: "+ e.getMessage());
         }
- 
+    }
+    
+    public void stop()
+    {
+        try 
+        {
+            serverSocket.close();
+        } 
+        catch (IOException ex) 
+        {
+            Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
  

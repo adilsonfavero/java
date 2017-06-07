@@ -18,14 +18,14 @@ public class LibreChatServer {
 
     public static void criaInstanciaSocket(final Integer porta) throws IOException
     { 
-       Server server = new Server(porta);
+       //Server server = new Server(porta);
     }
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) throws IOException  {
-        criaInstanciaSocket(9999);
+        //criaInstanciaSocket(9999);
     }
     
 }
