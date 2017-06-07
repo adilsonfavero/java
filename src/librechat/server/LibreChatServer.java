@@ -16,30 +16,15 @@ import java.util.logging.Logger;
  */
 public class LibreChatServer {
 
-    public static void criaInstanciaSocket(final Integer porta)
-    {
-        new Thread()
-        {
-            @Override
-            public void run() {
-                try {
-                    Server server = new Server(porta);
-                    //leitora.runServer(porta);
-                } catch (IOException ex) {
-                    //Logger.getLogger(IServer.class.getName()).log(Level.ALL, null, ex);
-                }
-            }
-            
-        }.start();
-                
-        
+    public static void criaInstanciaSocket(final Integer porta) throws IOException
+    { 
+       Server server = new Server(porta);
     }
-    
-    
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args)  {
+    public static void main(String[] args) throws IOException  {
         criaInstanciaSocket(9999);
     }
     

@@ -5,37 +5,64 @@
  */
 package Controller;
 
+import Model.Mensagem;
+import com.sun.security.ntlm.Client;
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author adilson_f
  */
-public class ClientHandler {
+public class ClientHandler implements Runnable
+{
 
-    public ClientHandler(Socket accept) 
+    private DataInputStream bIn;
+    private DataOutputStream bSaida;
+    private Socket socket;
+
+    ClientHandler(Socket socket) 
     {
-        
+        socket = new Socket();
+        this.socket = socket;
+        System.out.println("Cliente conectado: "+socket.getInetAddress()+ ":" + socket.getPort());
+    }
+
+    @Override
+    public void run() 
+    {
+        try 
+        {
+            bIn = new DataInputStream(socket.getInputStream());
+            boolean retorno = true;	
+            bSaida = new DataOutputStream(socket.getOutputStream());
+            while(retorno)
+            {
+                
+            }
+        } 
+        catch (IOException ex) 
+        {
+                Logger.getLogger(ClientHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
     }
     
-    public void run()
+    public String sendMessage(Mensagem message)
     {
-        // Cria um buffer que armazenará as informações de entrada do teclado  
-                BufferedReader inFromUSer = new BufferedReader(new InputStreamReader(System.in));  
-                // Cria um stream de saída   
-                DataOutputStream outToServer = new DataOutputStream(Client.getOutputStream());  
-                // Cria um buffer que armazenará as informações retornadas pelo servidor  
-                BufferedReader inFromServer = new BufferedReader(new InputStreamReader(Client.getInputStream()));  
-                // Atribui as informações armazenadas no buffer do teclado à variável "sentence"  
-                sentence = inFromUSer.readLine();  
-                // Disponibiliza as informações contidas em "sentence" para a stream de saída do cliente  
-                outToServer.writeBytes(sentence + "\n");  
-                // Atribui as informações modificadas pelo servidor na variável "modifiedSentence"  
-                modifiedSentence = inFromServer.readLine();  
-                // Imprime no console do cliente a informação retornada pelo servidor  
-                System.out.println("do servidor: " + modifiedSentence);  
-                // Fecha o Socket  
-              Client.close(); 
+        return "";
     }
+    
+    
+    
+    
+    
+    
     
 }
